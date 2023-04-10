@@ -1,0 +1,18 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: ASE_Project
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Het
+    family-names: Patel
+    email: hpatel28@ncsu.edu
+  - given-names: Shaunak
+    family-names: Patel
+    email: shpate25@ncsu.edu
+  
+    
