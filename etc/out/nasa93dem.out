@@ -1,0 +1,30 @@
+\begin{tabular}{lrrr}
+\hline
+ Dataset                         &   Number of rows &   Number of x &   Number of y \\
+\hline
+ nasa93dem                       &               93 &            22 &             4 \\
+ healthCloseIsses12mths0001-hard &            10000 &             5 &             3 \\
+ SSM                             &           239360 &            13 &             2 \\
+ SSN                             &            53662 &            17 &             2 \\
+ auto93                          &              398 &             4 &             3 \\
+ auto2                           &               93 &            19 &             4 \\
+ coc10000                        &            10000 &            22 &             3 \\
+ healthCloseIsses12mths0011-easy &            10000 &             5 &             3 \\
+ coc1000                         &             1000 &            17 &             5 \\
+ pom                             &            10000 &            10 &             3 \\
+ china                           &              499 &            16 &             1 \\
+\hline
+\end{tabular}
+        Kloc+    Effort-    Defects-    Months-    Avg evals
+----  -------  ---------  ----------  ---------  -----------
+all      47.5        252        2007       21.4            0
+sway     16.4      82.73      589.55     13.895            5
+xpln    15.94         73      626.25     13.905            5
+top       4.9      15.84       153.1       8.71           93
+
+              Kloc+    Effort-    Defects-    Months-
+------------  -------  ---------  ----------  ---------
+all to all    =        =          =           =
+all to sway   ≠        ≠          ≠           ≠
+sway to xpln  ≠        ≠          ≠           ≠
+sway to top   ≠        ≠          ≠           ≠

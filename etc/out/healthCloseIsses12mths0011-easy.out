@@ -1,0 +1,32 @@
+\begin{tabular}{lrrr}
+\hline
+ Dataset                         &   Number of rows &   Number of x &   Number of y \\
+\hline
+ nasa93dem                       &               93 &            22 &             4 \\
+ healthCloseIsses12mths0001-hard &            10000 &             5 &             3 \\
+ SSM                             &           239360 &            13 &             2 \\
+ SSN                             &            53662 &            17 &             2 \\
+ auto93                          &              398 &             4 &             3 \\
+ auto2                           &               93 &            19 &             4 \\
+ coc10000                        &            10000 &            22 &             3 \\
+ healthCloseIsses12mths0011-easy &            10000 &             5 &             3 \\
+ coc1000                         &             1000 &            17 &             5 \\
+ pom                             &            10000 &            10 &             3 \\
+ china                           &              499 &            16 &             1 \\
+\hline
+\end{tabular}
+WARNING: all to all 0 1 false
+FAILED: all to all ACC+
+         MRE-      ACC+    PRED40+    Avg evals
+----  -------  --------  ---------  -----------
+all   119.301  -12.2195          0            0
+sway  20.1045   -0.1025     66.664            8
+xpln    5.025   -0.0245    79.1635            8
+top         0         0      83.33        10000
+
+              MRE-    ACC+    PRED40+
+------------  ------  ------  ---------
+all to all    =       ≠       =
+all to sway   ≠       ≠       ≠
+sway to xpln  ≠       ≠       ≠
+sway to top   ≠       ≠       ≠

@@ -1,0 +1,30 @@
+\begin{tabular}{lrrr}
+\hline
+ Dataset                         &   Number of rows &   Number of x &   Number of y \\
+\hline
+ nasa93dem                       &               93 &            22 &             4 \\
+ healthCloseIsses12mths0001-hard &            10000 &             5 &             3 \\
+ SSM                             &           239360 &            13 &             2 \\
+ SSN                             &            53662 &            17 &             2 \\
+ auto93                          &              398 &             4 &             3 \\
+ auto2                           &               93 &            19 &             4 \\
+ coc10000                        &            10000 &            22 &             3 \\
+ healthCloseIsses12mths0011-easy &            10000 &             5 &             3 \\
+ coc1000                         &             1000 &            17 &             5 \\
+ pom                             &            10000 &            10 &             3 \\
+ china                           &              499 &            16 &             1 \\
+\hline
+\end{tabular}
+        Loc+    Risk-    Effort-    Avg evals
+----  ------  -------  ---------  -----------
+all   998.65      5.1    19464.2            0
+sway  993.45     3.55      14362            8
+xpln  1131.8        4    20431.4            8
+top     1959        0      17752        10000
+
+              Loc+    Risk-    Effort-
+------------  ------  -------  ---------
+all to all    =       =        =
+all to sway   ≠       ≠        ≠
+sway to xpln  ≠       ≠        ≠
+sway to top   ≠       ≠        ≠

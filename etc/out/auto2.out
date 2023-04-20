@@ -1,0 +1,30 @@
+\begin{tabular}{lrrr}
+\hline
+ Dataset                         &   Number of rows &   Number of x &   Number of y \\
+\hline
+ nasa93dem                       &               93 &            22 &             4 \\
+ healthCloseIsses12mths0001-hard &            10000 &             5 &             3 \\
+ SSM                             &           239360 &            13 &             2 \\
+ SSN                             &            53662 &            17 &             2 \\
+ auto93                          &              398 &             4 &             3 \\
+ auto2                           &               93 &            19 &             4 \\
+ coc10000                        &            10000 &            22 &             3 \\
+ healthCloseIsses12mths0011-easy &            10000 &             5 &             3 \\
+ coc1000                         &             1000 &            17 &             5 \\
+ pom                             &            10000 &            10 &             3 \\
+ china                           &              499 &            16 &             1 \\
+\hline
+\end{tabular}
+        CityMPG+    HighwayMPG+    Weight-    Class-    Avg evals
+----  ----------  -------------  ---------  --------  -----------
+all           21             28       3040      17.7            0
+sway        29.8          34.45    2107.25      8.82            5
+xpln       29.75           33.9    2230.25     9.285            5
+top           33           40.6       2054      8.96           93
+
+              CityMPG+    HighwayMPG+    Weight-    Class-
+------------  ----------  -------------  ---------  --------
+all to all    =           =              =          =
+all to sway   ≠           ≠              ≠          ≠
+sway to xpln  ≠           ≠              ≠          ≠
+sway to top   ≠           ≠              ≠          ≠

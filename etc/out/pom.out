@@ -1,0 +1,30 @@
+\begin{tabular}{lrrr}
+\hline
+ Dataset                         &   Number of rows &   Number of x &   Number of y \\
+\hline
+ nasa93dem                       &               93 &            22 &             4 \\
+ healthCloseIsses12mths0001-hard &            10000 &             5 &             3 \\
+ SSM                             &           239360 &            13 &             2 \\
+ SSN                             &            53662 &            17 &             2 \\
+ auto93                          &              398 &             4 &             3 \\
+ auto2                           &               93 &            19 &             4 \\
+ coc10000                        &            10000 &            22 &             3 \\
+ healthCloseIsses12mths0011-easy &            10000 &             5 &             3 \\
+ coc1000                         &             1000 &            17 &             5 \\
+ pom                             &            10000 &            10 &             3 \\
+ china                           &              499 &            16 &             1 \\
+\hline
+\end{tabular}
+        Cost-    Completion+    Idle-    Avg evals
+----  -------  -------------  -------  -----------
+all   327.752         0.8985    0.236            0
+sway  319.905         0.9075    0.215            8
+xpln  320.633         0.8965   0.2365            8
+top    138.75              1        0        10000
+
+              Cost-    Completion+    Idle-
+------------  -------  -------------  -------
+all to all    =        =              =
+all to sway   ≠        ≠              ≠
+sway to xpln  ≠        ≠              ≠
+sway to top   ≠        ≠              ≠
