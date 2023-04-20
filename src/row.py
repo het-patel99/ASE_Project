@@ -1,6 +1,8 @@
+from typing import List
 
-class Rows:
-
-    ## adds rows which is read by add method in data.py class.
-    def __init__(self, t):
+class Row:
+    def __init__(self, t: List):
         self.cells = t
+        self.x = None
+        self.y = None
+        self.rank = -1

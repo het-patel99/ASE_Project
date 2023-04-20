@@ -1,133 +1,87 @@
+import copy as cpy
+import io
 import math
-import re, sys
-from main import the
-# from Data import *
+import re
+import sys
 
 
-def show(node, what, cols, nPlaces, lvl=None):
-    if node:
-        lvl = lvl or 0
-        print("| " * lvl, str(len(node["data"].rows)), " ")
-        if not node.get("left", None) or lvl == 0:
-            print(o(node["data"].stats("mid", node["data"].cols.y, nPlaces)))
-        else:
-            print("")
-        show(node.get("left", None), what, cols, nPlaces, lvl+1)
-        show(node.get("right", None), what, cols, nPlaces, lvl+1)
+class Random:
+    def __init__(self):
+        self.seed = 937162211
 
-# Numeric Functions
+    def set_seed(self, value: int):
+        self.seed = value
 
-def rint(lo, hi):
-    return math.floor(0.5 + rand(lo, hi))
+    def get_seed(self):
+        return self.seed
 
-def any(t):
-    return t[rint(len(t))]
+    def rand(self, lo=0, hi=1):
+        self.seed = (16807 * self.seed) % 2147483647
+        return lo + (hi - lo) * self.seed / 2147483647
 
-def many(t,n):
-    u = {}
-    for i in range(1,n):
-        u[1+len(u)] = any(t)
-    return u
-# many = function(t,n,    u) u={}; for i=1,n do push(u, any(t)) end; return u end 
-def rand(lo=0, hi=1):
-    lo, hi = lo or 0, hi or 1
-    Seed = (16807 * the["seed"]) % 2147483647
-    return lo + (hi-lo) * Seed / 2147483647
+    def rint(self, lo=0, hi=1):
+        return math.floor(0.5 + self.rand(lo, hi))
 
-def cosine(a, b, c):
-    x1 = (a**2 + c**2 - b**2) / (2*c)
-    x2 = max(0, min(1, x1))
-    y  = (a**2 - x2**2)**.5
-    return x2, y
+_inst = Random()
+rand = _inst.rand
+rint = _inst.rint
+get_seed = _inst.get_seed
+set_seed = _inst.set_seed
 
-def lt(x):
-    def fun(a, b):
-        return a[x] < b[x]
+def rnd(n: float, n_places: int = 2) -> float:
+    mult = math.pow(10, n_places)
+    return math.floor(n * mult + 0.5) / mult
 
-def push(t, x):
-    t.append(x)
+def coerce(v):
+    types = [int, float]
+    for t in types:
+        try:
+            return t(v)
+        except ValueError:
+            pass
+    bool_vals = ["true", "false"]
+    if v.lower() in bool_vals:
+        return v.lower() == "true"
+    return v
 
-def any(t):
-    return t[rint(0, len(t) - 1)]
+def csv(filename, func):
+    with io.open(filename) as f:
+        while True:
+            s = f.readline().rstrip()
+            if s:
+                t = []
+                for s1 in re.findall("([^,]+)", s):
+                    t.append(coerce(s1))
+                func(t)
+            else:
+                f.close()
+                break
 
 def many(t, n):
-    u = []
-    for i in range(n):
-        u.append(any(t))
-    return u
+    return [any(t) for _ in range(n)]
 
-# String Functions
+def any(t):
+    return t[rint(len(t)) - 1]
 
-def coerce(s):
-    if s == "true":
-        return True
-    elif s == "false":
-        return False
-    elif re.search(r"[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?$", s) is not None:
-        return float(s)
-    else:
-        return s
+def copy(t):
+    return cpy.deepcopy(t)
 
-def rnd(n, nPlaces=3):
-    mult = 10**(nPlaces or 3)
-    return math.floor(n * mult + 0.5) / mult 
+def norm(num, n):
+    return n if n == "?" else (n - num.lo) / (num.hi - num.lo + sys.float_info.min)
 
+def per(t, p):
+    p = math.floor(((p or 0.5) * len(t)) + 0.5)
+    return t[max(0, min(len(t), p) - 1)]
 
-def map(t,fun):
+def kap(t, func, u={}):
     u = {}
-    if isinstance(t, list):
-        items = enumerate(t)
-    else:
-        items = []
-    # myDict = t.copy() ;
-    for k, v in items:
-    # for k,v in enumerate(t.values()):
-        v,k = fun(v)
-        u[k or (1+len(u))] = v
+    what = enumerate(t)
+    if isinstance(t, dict):
+        what = t.items()
+    for k, v in what:
+        v, k = func(k, v)
+        if not k:
+            u[len(u)] = v
+        else:
+            u[k] = v
     return u
-
-def kap(t, fun):
-    u = {}
-    if isinstance(t, list):
-        items = enumerate(t)
-    else:
-        items = t.items()
-    # myDict = t.copy() ;
-    for k, v in items:
-            v, k = fun(k, v)
-            u[k or len(u)+1] = v
-    return u
-
-def oo(t):
-    print(o(t))
-    return t
-
-def o(t, isKeys=None):
-    return str(t)
-
-def cliffs_delta(ns1, ns2):
-
-    if len(ns1) > 256:
-        ns1 = many(ns1, 256)
-    if len(ns2) > 256:
-        ns2 = many(ns2, 256)
-    if len(ns1) > 10 * len(ns2):
-        ns1 = many(ns1, 10 * len(ns2))
-    if len(ns2) > 10 * len(ns1):
-        ns2 = many(ns2, 10 * len(ns1))
-
-    n, gt, lt = 0, 0, 0
-    for x in ns1:
-        for y in ns2:
-            n += 1
-            if x > y:
-                gt += 1
-            if x < y:
-                lt += 1
-
-    return abs(lt - gt) / n > 0.147
-
-def diffs(nums1, nums2):
-    def kap(nums, fn):
-        return [fn(k, v) for k, v in enumerate(nums)]
-    return kap(nums1, lambda k, nums: (cliffs_delta(nums.col.has, nums2[k].col.has), nums.col.txt))

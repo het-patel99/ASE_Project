@@ -1,70 +1,61 @@
 import math
+from typing import Union
+from options import options
+from utils import rint, rand, per, norm
+from _basecol import Col
 
-## Num class Summarizes a stram of numbers
-## Represents a column of character values
-class Num():
-    
-    ## constructor created for Num class
-    def __init__(self, at = 0, txt = ""):
-        self.at = at
-        self.txt = txt
-
-        self.n = 0
+class Num(Col):
+    def __init__(self, at: int = 0, txt: str = "", t=None):
+        super().__init__(at=at, txt=txt)
+        self.has_ = {}
+        self.ok = True
+        self.lo = math.inf
+        self.hi = -math.inf
+        self.w = -1 if self.txt.endswith("-") else 1
         self.mu = 0
         self.m2 = 0
+        self.sd = 0
+        if t:
+            for x in t:
+                self.add(x)
+
+    def add(self, x: Union[str, float, int], n: int = 1) -> None:
+        if x != "?":
+            self.n += n
+            self.lo, self.hi = min(x, self.lo), max(x, self.hi)
+            all_ = len(self.has_)
+            if all_ < options["Max"]:
+                pos = all_ + 1
+                self.has_[pos] = x
+                self.ok = False
+            else:
+                rand_prob = rand() < options["Max"] / self.n
+                if rand_prob:
+                    pos = rint(1, all_)
+                    self.has_[pos] = x
+                    self.ok = False
+            d = x - self.mu
+            self.mu = self.mu + d / self.n
+            self.m2 = self.m2 + d * (x - self.mu)
+            self.sd = 0 if self.n < 2 else (self.m2 / (self.n - 1)) ** .5
+
+    def mid(self) -> float:
+        return per(self.has(), .5)
+
+    def div(self) -> float:
+        return (per(self.has(), .9) - per(self.has(), .1)) / 2.58
+
+    def has(self):
+        ret = dict(sorted(self.has_.items(), key=lambda x: x[1]))
         self.ok = True
-        self.has = []
-        self.lo = float('inf')
-        self.hi = float('-inf')
+        return list(ret.values())
 
-        self.w = -1 if '-$' in txt else 1
-
-    def at(self) -> int:
-        return self.at
-
-    def txt(self) -> str:
-        return self.txt
-
-    ## add method adds the n value also,
-    ## It upadtes the values of lo,hi d, mu,m2 which is used for,
-    ## calculating standard devaiation. 
-    def add(self, value):
-        if value != '?':
-            float_value = float(value)
-            self.n = self.n + 1
-            d = float_value - self.mu
-            self.mu = self.mu + (d / self.n)
-            self.m2 = self.m2 + (d * (float_value - self.mu))
-            self.lo = min(float_value, self.lo)
-            self.hi = max(float_value, self.hi)
-
-    ## mid method return the mean. 
-    def mid(self):
-        return self.mu
-
-    # div method uses Welford's algorithmn to calculate standard deviation,
-    # here is the link for Welford's algorithmn http://t.ly/nn_W
-    def div(self): 
-        if((self.m2 < 0) or (self.n < 2)):
-            return 0
-        return pow((self.m2 / (self.n - 1)), 0.5)
-
-    def rnd(self, x, n):
-        if x == "?":
-            return x
-        mult = math.pow(10, n)
-        return math.floor(x*mult + 0.5) / mult
-
-    def norm(self, n):
-        return n == "?" and n or (n - self.lo)/(self.hi - self.lo + 1e-32)
-    
-    def dist(self,n1,n2):
-        if n1 == "?" and n2 == "?":
+    def dist(self, data1, data2):
+        data1, data2 = norm(self, data1), norm(self, data2)
+        if data1 == "?" and data2 == "?":
             return 1
-        n1 = self.norm(n1)
-        n2 = self.norm(n2)
-        if n1 == "?":
-            n1 = n2 < 0.5 and 1 or 0
-        if n2 == "?":
-            n2 = n1 < 0.5 and 1 or 0
-        return abs(n1-n2)
+        if data1 == "?":
+            data1 = 1 if data2 < 0.5 else 1
+        if data2 == "?":
+            data2 = 1 if data1 < 0.5 else 1
+        return abs(data1 - data2)

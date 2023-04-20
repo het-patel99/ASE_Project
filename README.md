@@ -16,7 +16,7 @@ s# How to Run??s
 The tests.out file is stored inside the etc/out/ directory
 
 
-# Team Member
+# Team Member (Group 18)
 
 1. Het Patel (hpatel28)
 2. Shaunak Patel (shpate25)

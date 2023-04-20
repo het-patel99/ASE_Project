@@ -1,56 +1,42 @@
-
+import collections
 import math
+from _basecol import Col
 
-## Summarizes a stream of symbols
-## Represents a column of character values
-class Sym:
-
-    ## Constructs the SYM class
-    def __init__(self, at = 0, txt = ""):
-        self.at = at
-        self.txt = txt
-        self.isSym = True
-        self.n = 0
-        self.has = {}
-        self.most = 0
+class Sym(Col):
+    def __init__(self, at: int = 0, txt: str = ""):
+        super().__init__(at=at, txt=txt)
+        self.value_counts = collections.defaultdict(int)
         self.mode = None
+        self.most_frequent_count = 0
 
-    def at(self) -> int:
-        return self.at
+    def add(self, value: str, count: int = 1):
+        if value != "?":
+            self.n += count
+            self.value_counts[value] += count
+            value_count = self.value_counts[value]
+            if value_count > self.most_frequent_count:
+                self.most_frequent_count = value_count
+                self.mode = value
+        return value
 
-    def txt(self) -> str:
-        return self.txt
-
-    ## add function updates the counts for the values that has been seen so far
-    ## it doesn't return any value
-    def add(self, x):
-        if x != '?':
-            self.n = self.n + 1
-            if x in self.has:
-                self.has[x] = self.has[x] + 1
-            else:
-                self.has[x] = 1
-            
-            if self.has[x] > self.most:
-                self.most = self.has[x]
-                self.mode = x
-    
-    ## Mid method returns the mode (most frequent)
     def mid(self):
         return self.mode
 
-    ## div method returns the entropy 
     def div(self):
-        e = 0
-        for i in self.has:
-            p = self.has[i] / self.n
-            e = e + (p * math.log(p, 2))
-        return -e
+        def entropy(p):
+            return p * math.log2(p)
 
-    def rnd(self, x, n):
-        return x
+        total_entropy = 0
+        for value_count in self.value_counts.values():
+            p = value_count / self.n
+            total_entropy -= entropy(p)
 
-    def dist(self,s1,s2):
-        return s1== "?" and s2 == "?" and 1 or s1==s2 and 0 or 1
+        return total_entropy
 
-
+    def dist(self, data1, data2):
+        if data1 == "?" and data2 == "?":
+            return 1
+        elif data1 == data2:
+            return 0
+        else:
+            return 1
