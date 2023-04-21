@@ -16,7 +16,7 @@ class Projection:
 class SwayOptimizer(BaseOptimizer):
     def __init__(
         self,
-        distance_class: Optional[Data] = None,
+        p: float = 2,
         reuse: bool = True,
         far: float = 0.95,
         halves: int = 512,
@@ -26,7 +26,7 @@ class SwayOptimizer(BaseOptimizer):
     ):
         super().__init__(seed)
         self.data = None
-        self.distance_class = distance_class or PDist(p=2)
+        self.distance_class = PDist(p=2)
         self.reuse = reuse
         self.far = far
         self.halves = halves

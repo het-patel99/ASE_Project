@@ -1,54 +1,126 @@
+from statistics import mean
 from tabulate import tabulate
 from data import Data
 from explain import Explain, select_rows
 from sway import SwayOptimizer
+from decisiontreeOptimizer import DtreeOptimizer
+from sway2 import SwayHyperparameterOptimizer
 from options import options
 from stats import cliffs_delta, bootstrap
-from data_analyse import help_string
+
+help_string = """
+project: multi-objective
+semi-supervised explanation system:
+(c) Group 18
+  
+USAGE: python3 main.py [OPTIONS] [-g ACTIONS]
+  
+OPTIONS:
+  -b  --bins        initial number of bins           = 16
+  -c  --cliff       cliff's delta threshold          = .147
+  -d  --D           different is over sd*d           = .35
+  -F  --Far         distance to distant              = .95
+  -h  --help        show help                        = false
+  -H  --halves      search space for clustering      = 512
+  -I  --min_cluster size of smallest cluster         = .5
+  -M  --Max         numbers                          = 512
+  -p  --P           dist coefficient                 = 2
+  -R  --rest        how many of rest to sample       = 10
+  -r  --reuse       child splits reuse a parent pole = true
+  -x  --bootstrap   number of samples to bootstrap   = 512    
+  -o  --ci          confidence interval              = 0.05
+  -f  --file        file to generate table of        = ../etc/data/healthCloseIsses12mths0011-easy.csv
+  -n  --itrs        number of iterations to run      = 20
+  -w  --color       output with color                = true
+  -s  --sway2       refresh the sway2 parameters     = true
+"""
 
 def main():
     options.parse_cli_settings(help_string)
     if options["help"]:
         print(help_string)
     else:
-        results = {"all": [], "sway": [], "xpln": [], "top": []}
-        n_evals = {"all": 0, "sway": 0, "xpln": 0, "top": 0}
+        results = {"all": [], "sway1": [], "xpln1": [], "sway2": [], "xpln2": [], "top": []}
+        n_evals = {"all": 0, "sway1": 0, "xpln1": 0, "sway2": 0, "xpln2": 0, "top": 0}
 
         comparisons = [
             [["all", "all"], None],
-            [["all", "sway"], None],
-            [["sway", "xpln"], None],
-            [["sway", "top"], None]
+            [["all", "sway1"], None],
+            [["all", "sway2"], None],
+            [["sway1", "sway2"], None],
+            [["sway1", "xpln1"], None],
+            [["sway1", "xpln2"], None],
+            [["xpln1", "xpln2"], None],
+            [["sway1", "top"], None]
         ]
-
+        ranks = {"all": 0, "sway1": 0, "sway2": 0, "xpln1": 0, "xpln2": 0, "top": 0}
         count = 0
-        data = None
+        data = Data(options["file"])
+
+        sway2 = SwayHyperparameterOptimizer(
+                    reuse=options["reuse"],
+                    far=options["Far"],
+                    halves=options["halves"],
+                    rest=options["rest"],
+                    i_min=options["min_cluster"],
+                    file=options["file"],
+                    sway2=options["sway2"],
+                    p=options["P"]
+                )
+        sway1 = SwayOptimizer(
+                reuse=options["reuse"],
+                far=options["Far"],
+                halves=options["halves"],
+                rest=options["rest"],
+                i_min=options["min_cluster"],
+                p=options["P"]
+            )
+        
+        # all_ordered = data.betters()
+        # for idx, row in enumerate(all_ordered):
+        #     row.rank = 1 + (idx/len(data.rows))*99
 
         while count < options["itrs"]:
-            data = Data(options["file"])
-            reuse=options["reuse"]
-            rest=options["rest"]
-            far=options["Far"]
-            halves=options["halves"]
-            i_min=options["min_cluster"]
-            best, rest, evals_sway = SwayOptimizer(reuse = reuse,rest = rest,far = far, halves = halves,i_min = i_min).run(data)
+            
+            best, rest, evals_sway = sway1.run(data)
 
             x = Explain(best, rest)
             rule, _ = x.xpln(data, best, rest)
 
             if rule != -1:
+                best_xpln2, _, _ = DtreeOptimizer(best=best, rest=rest).run(data)
+                xpln2 = Data.clone(data,best_xpln2)
                 selected_rows = select_rows(rule, data.rows)
                 data1 = Data.clone(data, selected_rows)
-                results['all'].append(data)
-                results['sway'].append(best)
-                results['xpln'].append(data1)
+                best2, _, evals_sway2 = sway2.run(data)
                 top2, _ = data.betters(len(best.rows))
                 top = Data.clone(data, top2)
+                results['all'].append(data)
+                results['sway1'].append(best)
+                results['xpln1'].append(data1)
+                results['xpln2'].append(xpln2)
                 results['top'].append(top)
+                results['sway2'].append(best2)
+
+                ranks['all'] += (mean([r.rank for r in data.rows]))
+                ranks['sway1'] += (mean([r.rank for r in best.rows]))
+                ranks['xpln1'] +=(mean([r.rank for r in data1.rows]))
+                ranks['xpln2']+=(mean([r.rank for r in xpln2.rows]))
+                ranks['sway2']+=(mean([r.rank for r in best2.rows]))
+                ranks['top']+=(mean([r.rank for r in top.rows]))
+
+                # accumulate the number of evals
+                # for all: 0 evaluations 
                 n_evals["all"] += 0
-                n_evals["sway"] += evals_sway
-                n_evals["xpln"] += evals_sway
+                n_evals["sway1"] += evals_sway
+                n_evals["sway2"] += evals_sway2
+
+                # xpln uses the same number of evals since it just uses the data from
+                # sway to generate rules, no extra evals needed
+                n_evals["xpln1"] += evals_sway
+                n_evals["xpln2"] += evals_sway
                 n_evals["top"] += len(data.rows)
+
 
                 for i in range(len(comparisons)):
                     [base, diff], result = comparisons[i]
@@ -72,17 +144,25 @@ def main():
         table = []
 
         for key, value in results.items():
-            result = {}
-            for item in value:
-                stats = item.stats()
-                for k1, v1 in stats.items():
-                    result[k1] = result.get(k1, 0) + v1
-            for k2, v2 in result.items():
-                result[k2] /= options["itrs"]
-            stats_list = [key] + [result[y] for y in headers]
-            stats_list.append(n_evals[key] / options["itrs"])
-            table.append(stats_list)
+            stats = get_result(value)
+            stats_list = [stats[y] for y in headers]
+            stats_list += [n_evals[key] / options["itrs"]]
+            # stats_list += [ranks[key] / options["itrs"]]
+            stats_list = [round(n, 1) for n in stats_list]
+            table.append([key] + stats_list)
         
+        maxes = []
+        h = [v[0] for v in table]
+        for i in range(len(headers)):
+            header_vals = [v[i+1] for v in table]
+            fun = max if headers[i][-1] == "+" else min
+            vals = [table[h.index("sway1")][i+1],table[h.index("sway2")][i+1]]
+            vals_x = [table[h.index("xpln1")][i+1],table[h.index("xpln2")][i+1]]
+            maxes.append([headers[i],
+                          table[header_vals.index(fun(header_vals))][0],
+                           vals.index(fun(vals)) == 1,
+                           vals_x.index(fun(vals_x)) == 1])
+            
         if options["color"]:
             for i, header in enumerate(headers):
                 header_vals = [v[i + 1] for v in table]
@@ -93,7 +173,10 @@ def main():
 
         print(tabulate(table, headers=headers + ["Avg evals"], numalign="right"))
         print()
-
+     
+        m_headers = ["Best", "Beat Sway?", "Beat Xpln?"]
+        print(tabulate(maxes, headers=m_headers,numalign="right"))
+        print()
         table = []
         for [base, diff], result in comparisons:
             table.append([f"{base} to {diff}"] + result)

@@ -1,32 +1,35 @@
-\begin{tabular}{lrrr}
-\hline
- Dataset                         &   Number of rows &   Number of x &   Number of y \\
-\hline
- nasa93dem                       &               93 &            22 &             4 \\
- healthCloseIsses12mths0001-hard &            10000 &             5 &             3 \\
- SSM                             &           239360 &            13 &             2 \\
- SSN                             &            53662 &            17 &             2 \\
- auto93                          &              398 &             4 &             3 \\
- auto2                           &               93 &            19 &             4 \\
- coc10000                        &            10000 &            22 &             3 \\
- healthCloseIsses12mths0011-easy &            10000 &             5 &             3 \\
- coc1000                         &             1000 &            17 &             5 \\
- pom                             &            10000 &            10 &             3 \\
- china                           &              499 &            16 &             1 \\
-\hline
-\end{tabular}
-WARNING: all to all 0 0 false
-FAILED: all to all Lbs-
-         Lbs-    Acc+    Mpg+    Avg evals
-----  -------  ------  ------  -----------
-all      2800    15.5      20            0
-sway   2147.4   15.97    31.5            6
-xpln  2157.05   15.85    29.5            6
-top      1985   18.78      40          398
+refreshing sway
+Far [0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+halves [100, 200, 300, 400, 500, 600, 700]
+min_cluster [0.0, 0.2, 0.4, 0.6]
+Max [1, 6, 11, 16, 21, 26, 31, 36, 41, 46]
+P [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2]
+rest [1, 2, 3, 4]
+reuse [True, False]
+new:  {'Far': 0.8, 'halves': 600, 'min_cluster': 0.4, 'Max': 6, 'P': 1.2, 'rest': 4, 'reuse': False}
 
-              Lbs-    Acc+    Mpg+
-------------  ------  ------  ------
-all to all    ≠       =       =
-all to sway   ≠       ≠       ≠
-sway to xpln  ≠       ≠       ≠
-sway to top   ≠       ≠       ≠
+         Lbs-    Acc+    Mpg+    Avg evals
+-----  ------  ------  ------  -----------
+all      2800    15.5      20            0
+sway1  2088.4    16.3    34.5            6
+xpln1  2205.7    15.8      29            6
+sway2  2063.9    15.9      33         22.2
+xpln2  2111.7    16.6      35            6
+top      [92m1987[0m    [92m18.8[0m      [92m40[0m          398
+
+      Best    Beat Sway?    Beat Xpln?
+----  ------  ------------  ------------
+Lbs-  top     True          True
+Acc+  top     False         True
+Mpg+  top     False         True
+
+                Lbs-    Acc+    Mpg+
+--------------  ------  ------  ------
+all to all      =       =       =
+all to sway1    ≠       ≠       ≠
+all to sway2    ≠       ≠       ≠
+sway1 to sway2  ≠       ≠       ≠
+sway1 to xpln1  ≠       ≠       ≠
+sway1 to xpln2  ≠       ≠       ≠
+xpln1 to xpln2  ≠       ≠       ≠
+sway1 to top    ≠       ≠       ≠

@@ -2,7 +2,7 @@ from typing import Optional
 from data import Data
 from sym import Sym
 from _baseoptimizer import BaseOptimizer
-from skLabelEncoderarn import preprocessing, tree
+from sklearn import preprocessing, tree
 
 class DtreeOptimizer(BaseOptimizer):
     def __init__(self, best=None, rest=None, seed=None):
@@ -21,8 +21,8 @@ class DtreeOptimizer(BaseOptimizer):
         rest_rows = [[r.cells[c.at] for c in self._rest.cols.x] + ["rest"] for r in self._rest.rows]
         X = best_rows + rest_rows
 
-        LabelEncoder = preprocessing.LabeLabelEncoderncoder()
-        for i, col in enumerate(self._other.cols.x):
+        LabelEncoder = preprocessing.LabelEncoder()
+        for i, col in enumerate(self._rest.cols.x):
             if isinstance(col, Sym):
                 new_cols = LabelEncoder.fit_transform([x[i] for x in X])
                 for j, x in zip(new_cols, X):
@@ -40,7 +40,7 @@ class DtreeOptimizer(BaseOptimizer):
 
     def _classify_dtree(self):
         X = [[row.cells[col.at] for col in self._data.cols.x] for row in self._data.rows]
-        LabelEncoder = preprocessing.LabeLabelEncoderncoder()
+        LabelEncoder = preprocessing.LabelEncoder()
         for i, col in enumerate(self._data.cols.x):
             if isinstance(col, Sym):
                 new_cols = LabelEncoder.fit_transform([x[i] for x in X])

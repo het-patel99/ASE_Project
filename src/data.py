@@ -66,4 +66,4 @@ class Data:
             key=cmp_to_key(lambda row1, row2: -1 if predicate.better(self.cols.y, row1, row2) else 1)
         )
 
-        return tmp[1:i], tmp[i + 1:] if i is not None else tmp
+        return tmp[0:i], tmp[i:] if i is not None else tmp

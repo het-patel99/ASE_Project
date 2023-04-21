@@ -8,8 +8,9 @@ from tabulate import tabulate
 
 # Define command-line options
 help_string = """
-project: multi-goal semi-supervised algorithms
-(c) Group 9
+project: multi-objective
+semi-supervised explanation system:
+(c) Group 18
   
 USAGE: python3 main.py [OPTIONS] [-g ACTIONS]
   
@@ -20,16 +21,16 @@ OPTIONS:
   -F  --Far         distance to distant              = .95
   -h  --help        show help                        = false
   -H  --halves      search space for clustering      = 512
-  -I  --min_cluster        size of smallest cluster         = .5
+  -I  --min_cluster size of smallest cluster         = .5
   -M  --Max         numbers                          = 512
   -p  --P           dist coefficient                 = 2
   -R  --rest        how many of rest to sample       = 10
   -r  --reuse       child splits reuse a parent pole = true
   -x  --bootstrap   number of samples to bootstrap   = 512    
-  -o  --ci        confidence interval              = 0.05
-  -f  --file        file to generate table of        = ../etc/data/auto93.csv
-  -n  --itrs       number of iterations to run      = 20
-  -w  --color      output with color                = true
+  -o  --ci          confidence interval              = 0.05
+  -f  --file        file to generate table of        = ../etc/data/healthCloseIsses12mths0011-easy.csv
+  -n  --itrs        number of iterations to run      = 20
+  -w  --color       output with color                = true
   -s  --sway2       refresh the sway2 parameters     = true
 """
 options.parse_cli_settings(help_string)

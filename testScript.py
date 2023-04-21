@@ -14,7 +14,7 @@ os.chdir("src")
 # Loop through all files in the data directory
 for file in os.listdir(os.path.join(current_dir)):
     if file.endswith(".csv"):
-        print("Processing", file)
+        print("running... ", file)
         # Run main.py with the csv name, and save output to out/csv_name.out
         data_file = os.path.join(current_dir, "../data", file)
         output_file = os.path.join(current_dir, "../out", os.path.splitext(file)[0] + ".out")

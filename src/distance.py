@@ -1,5 +1,5 @@
 from typing import List
-from cols import Col
+from _basecol import Col
 from row import Row
 
 

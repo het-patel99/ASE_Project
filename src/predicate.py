@@ -20,7 +20,7 @@ class HyperparameterPredicate:
     @staticmethod
     def better(cols: List[Union[Col]], row1: Row, row2: Row, data=None, opt=None):
         def get_options(row):
-            opt = options.t.copy()
+            opt = options.options_dict.copy()
             for item, col_name in zip(row.cells, cols.names):
                 opt[col_name] = item
             return opt
@@ -31,7 +31,8 @@ class HyperparameterPredicate:
         far=option1["Far"]
         halves=option1["halves"]
         i_min=option1["min_cluster"]
-        best1, rest1, evals1 = opt(reuse=reuse,far=far,halves=halves,rest=rest,i_min=i_min).run(data)
+        p1=option1["P"]
+        best1, rest1, evals1 = opt(p = p1,reuse=reuse,far=far,halves=halves,rest=rest,i_min=i_min).run(data)
 
         row_best1 = [0 for _ in data.cols.names]
         for key, val in best1.stats().items():
@@ -45,7 +46,8 @@ class HyperparameterPredicate:
         far=option2["Far"]
         halves=option2["halves"]
         i_min=option2["min_cluster"]
-        best2, rest2, evals2 = opt(reuse=reuse,far=far,halves=halves,rest=rest,i_min=i_min).run(data)
+        p2=option2["P"]
+        best2, rest2, evals2 = opt(p = p2, reuse=reuse,far=far,halves=halves,rest=rest,i_min=i_min).run(data)
         row_best2 = [0 for _ in data.cols.names]
         for key, val in best2.stats().items():
             for ys in data.cols.y:

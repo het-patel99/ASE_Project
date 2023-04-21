@@ -1,30 +1,36 @@
-\begin{tabular}{lrrr}
-\hline
- Dataset                         &   Number of rows &   Number of x &   Number of y \\
-\hline
- nasa93dem                       &               93 &            22 &             4 \\
- healthCloseIsses12mths0001-hard &            10000 &             5 &             3 \\
- SSM                             &           239360 &            13 &             2 \\
- SSN                             &            53662 &            17 &             2 \\
- auto93                          &              398 &             4 &             3 \\
- auto2                           &               93 &            19 &             4 \\
- coc10000                        &            10000 &            22 &             3 \\
- healthCloseIsses12mths0011-easy &            10000 &             5 &             3 \\
- coc1000                         &             1000 &            17 &             5 \\
- pom                             &            10000 &            10 &             3 \\
- china                           &              499 &            16 &             1 \\
-\hline
-\end{tabular}
-        CityMPG+    HighwayMPG+    Weight-    Class-    Avg evals
-----  ----------  -------------  ---------  --------  -----------
-all           21             28       3040      17.7            0
-sway        29.8          34.45    2107.25      8.82            5
-xpln       29.75           33.9    2230.25     9.285            5
-top           33           40.6       2054      8.96           93
+refreshing sway
+Far [0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+halves [100, 200, 300, 400, 500, 600, 700]
+min_cluster [0.0, 0.2, 0.4, 0.6]
+Max [1, 6, 11, 16, 21, 26, 31, 36, 41, 46]
+P [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2]
+rest [1, 2, 3, 4]
+reuse [True, False]
+new:  {'Far': 0.75, 'halves': 500, 'min_cluster': 0.2, 'Max': 11, 'P': 2.0, 'rest': 3, 'reuse': True}
 
-              CityMPG+    HighwayMPG+    Weight-    Class-
-------------  ----------  -------------  ---------  --------
-all to all    =           =              =          =
-all to sway   ≠           ≠              ≠          ≠
-sway to xpln  ≠           ≠              ≠          ≠
-sway to top   ≠           ≠              ≠          ≠
+         CityMPG+    HighwayMPG+    Weight-    Class-    Avg evals
+-----  ----------  -------------  ---------  --------  -----------
+all            21             28       3040      17.7            0
+sway1        31.1           35.5     2125.8       8.8            5
+xpln1        29.7           34.1     2223.2      10.3            5
+sway2        31.6           37.2     2123.2       9.6         13.3
+xpln2        29.7             34     2169.8         9            5
+top          [92m35.7[0m           [92m41.9[0m       [92m2045[0m       [92m8.6[0m           93
+
+             Best    Beat Sway?    Beat Xpln?
+-----------  ------  ------------  ------------
+CityMPG+     top     True          False
+HighwayMPG+  top     True          False
+Weight-      top     True          True
+Class-       top     False         True
+
+                CityMPG+    HighwayMPG+    Weight-    Class-
+--------------  ----------  -------------  ---------  --------
+all to all      =           =              =          =
+all to sway1    ≠           ≠              ≠          ≠
+all to sway2    ≠           ≠              ≠          ≠
+sway1 to sway2  ≠           ≠              ≠          ≠
+sway1 to xpln1  ≠           ≠              ≠          ≠
+sway1 to xpln2  ≠           ≠              ≠          ≠
+xpln1 to xpln2  ≠           ≠              ≠          ≠
+sway1 to top    ≠           ≠              ≠          ≠

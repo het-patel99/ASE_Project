@@ -1,32 +1,35 @@
-\begin{tabular}{lrrr}
-\hline
- Dataset                         &   Number of rows &   Number of x &   Number of y \\
-\hline
- nasa93dem                       &               93 &            22 &             4 \\
- healthCloseIsses12mths0001-hard &            10000 &             5 &             3 \\
- SSM                             &           239360 &            13 &             2 \\
- SSN                             &            53662 &            17 &             2 \\
- auto93                          &              398 &             4 &             3 \\
- auto2                           &               93 &            19 &             4 \\
- coc10000                        &            10000 &            22 &             3 \\
- healthCloseIsses12mths0011-easy &            10000 &             5 &             3 \\
- coc1000                         &             1000 &            17 &             5 \\
- pom                             &            10000 &            10 &             3 \\
- china                           &              499 &            16 &             1 \\
-\hline
-\end{tabular}
-WARNING: all to all 0 1 false
-FAILED: all to all ACC+
-         MRE-    ACC+    PRED40+    Avg evals
-----  -------  ------  ---------  -----------
-all    75.019  7.1465         25            0
-sway   75.032   7.298         25            8
-xpln  75.0825  7.1865     25.625            8
-top     64.91   11.33         25        10000
+refreshing sway
+Far [0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+halves [100, 200, 300, 400, 500, 600, 700]
+min_cluster [0.0, 0.2, 0.4, 0.6]
+Max [1, 6, 11, 16, 21, 26, 31, 36, 41, 46]
+P [1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2]
+rest [1, 2, 3, 4]
+reuse [True, False]
+new:  {'Far': 0.75, 'halves': 300, 'min_cluster': 0.6, 'Max': 26, 'P': 1.2, 'rest': 4, 'reuse': True}
 
-              MRE-    ACC+    PRED40+
-------------  ------  ------  ---------
-all to all    =       ≠       =
-all to sway   ≠       ≠       ≠
-sway to xpln  ≠       ≠       ≠
-sway to top   ≠       ≠       ≠
+         MRE-    ACC+    PRED40+    Avg evals
+-----  ------  ------  ---------  -----------
+all      75.3     7.2         [92m25[0m            0
+sway1    73.9     7.5       23.8            8
+xpln1    73.7     7.6         25            8
+sway2    73.7     7.5         25         19.5
+xpln2    74.1     7.4         25            8
+top      [92m64.9[0m    [92m11.3[0m         25        10000
+
+         Best    Beat Sway?    Beat Xpln?
+-------  ------  ------------  ------------
+MRE-     top     True          False
+ACC+     top     False         False
+PRED40+  all     True          False
+
+                MRE-    ACC+    PRED40+
+--------------  ------  ------  ---------
+all to all      =       =       =
+all to sway1    ≠       ≠       ≠
+all to sway2    ≠       ≠       ≠
+sway1 to sway2  ≠       ≠       ≠
+sway1 to xpln1  ≠       ≠       ≠
+sway1 to xpln2  ≠       ≠       ≠
+xpln1 to xpln2  ≠       ≠       ≠
+sway1 to top    ≠       ≠       ≠
