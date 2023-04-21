@@ -25,12 +25,12 @@ OPTIONS:
   -I  --min_cluster size of smallest cluster         = .5
   -M  --Max         numbers                          = 512
   -p  --P           dist coefficient                 = 2
-  -R  --rest        how many of rest to sample       = 10
+  -R  --rest        how many of rest to sample       = 25
   -r  --reuse       child splits reuse a parent pole = true
   -x  --bootstrap   number of samples to bootstrap   = 512    
   -o  --ci          confidence interval              = 0.05
-  -f  --file        file to generate table of        = ../etc/data/auto2.csv
-  -n  --itrs        number of iterations to run      = 20
+  -f  --file        file to generate table of        = ../etc/data/auto93.csv
+  -n  --itrs        number of iterations to run      = 15
   -w  --color       output with color                = true
   -s  --sway2       refresh the sway2 parameters     = true
 """
@@ -171,17 +171,17 @@ def main():
                 max_min_index = header_vals.index(max_min_val)
                 table[max_min_index][i + 1] = f"\033[92m{table[max_min_index][i + 1]}\033[0m"
 
-        print(tabulate(table, headers=headers + ["Avg evals"], numalign="right", tablefmt="latex"))
+        print(tabulate(table, headers=headers + ["Avg evals"], numalign="right"))
         print()
      
         m_headers = ["Best", "Beat Sway?", "Beat Xpln?"]
-        print(tabulate(maxes, headers=m_headers,numalign="right", tablefmt="latex"))
+        print(tabulate(maxes, headers=m_headers,numalign="right"))
         print()
         table = []
         for [base, diff], result in comparisons:
             table.append([f"{base} to {diff}"] + result)
 
-        print(tabulate(table, headers=headers, numalign="right", tablefmt="latex"))
+        print(tabulate(table, headers=headers, numalign="right"))
 
 def get_result(data_array):
     result = {}

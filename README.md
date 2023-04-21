@@ -9,6 +9,7 @@
 
 After running the testScript.py the output will be stored in /etc/out/filename file is stored inside the etc/out/ directory
 
+
 Here is the auto2.out file:
 ```
 refreshing sway
