@@ -28,18 +28,9 @@ OPTIONS:
   -r  --reuse       child splits reuse a parent pole = true
   -x  --bootstrap   number of samples to bootstrap   = 512    
   -o  --ci          confidence interval              = 0.05
-  -f  --file        file to generate table of        = ../etc/data/nasa93dem.csv
+  -f  --file        file to generate table of        = ../etc/data/auto2.csv
   -n  --itrs        number of iterations to run      = 20
   -w  --color       output with color                = true
   -s  --sway2       refresh the sway2 parameters     = true
 """
 options.parse_cli_settings(help_string)
-
-df = []
-for i in os.listdir("../etc/data"):
-    file = "../etc/data/" + i
-    data = Data(file)
-    result = [i.replace(".csv", ""), len(data.rows), len(data.cols.x), len(data.cols.y)]
-    df.append(result)
-
-print(tabulate(df, headers=["Dataset", "Number of rows", "Number of x", "Number of y"], numalign="right", tablefmt="latex"))

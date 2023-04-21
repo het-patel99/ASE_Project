@@ -47,13 +47,13 @@ class DtreeOptimizer(BaseOptimizer):
                 for j, x in zip(new_cols, X):
                     x[i] = j
         best = []
-        other = []
+        rest = []
         for i, x in enumerate(X):
             if self._remove_missing(x):
                 result = self._clf.predict([x])
                 if result == "best":
                     best.append(self._data.rows[i])
                 else:
-                    other.append(self._data.rows[i])
+                    rest.append(self._data.rows[i])
 
-        return best, other, 0
+        return best, rest, 0

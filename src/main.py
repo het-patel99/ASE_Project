@@ -3,7 +3,7 @@ from data import Data
 from explain import Explain, select_rows
 from sway import SwayOptimizer
 from decisiontreeOptimizer import DtreeOptimizer
-from sway2 import SwayHyperparameterOptimizer
+from sway2 import sway2hpOptimizer
 from options import options
 from statistics import mean
 from stats import cliffs_delta, bootstrap
@@ -29,7 +29,7 @@ OPTIONS:
   -r  --reuse       child splits reuse a parent pole = true
   -x  --bootstrap   number of samples to bootstrap   = 512    
   -o  --ci          confidence interval              = 0.05
-  -f  --file        file to generate table of        = ../etc/data/nasa93dem.csv
+  -f  --file        file to generate table of        = ../etc/data/auto2.csv
   -n  --itrs        number of iterations to run      = 20
   -w  --color       output with color                = true
   -s  --sway2       refresh the sway2 parameters     = true
@@ -57,7 +57,7 @@ def main():
         count = 0
         data = Data(options["file"])
 
-        sway2 = SwayHyperparameterOptimizer(
+        sway2 = sway2hpOptimizer(
                     reuse=options["reuse"],
                     far=options["Far"],
                     halves=options["halves"],
@@ -171,17 +171,17 @@ def main():
                 max_min_index = header_vals.index(max_min_val)
                 table[max_min_index][i + 1] = f"\033[92m{table[max_min_index][i + 1]}\033[0m"
 
-        print(tabulate(table, headers=headers + ["Avg evals"], numalign="right"))
+        print(tabulate(table, headers=headers + ["Avg evals"], numalign="right", tablefmt="latex"))
         print()
      
         m_headers = ["Best", "Beat Sway?", "Beat Xpln?"]
-        print(tabulate(maxes, headers=m_headers,numalign="right"))
+        print(tabulate(maxes, headers=m_headers,numalign="right", tablefmt="latex"))
         print()
         table = []
         for [base, diff], result in comparisons:
             table.append([f"{base} to {diff}"] + result)
 
-        print(tabulate(table, headers=headers, numalign="right"))
+        print(tabulate(table, headers=headers, numalign="right", tablefmt="latex"))
 
 def get_result(data_array):
     result = {}
