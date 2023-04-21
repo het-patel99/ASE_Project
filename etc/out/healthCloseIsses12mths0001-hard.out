@@ -10,12 +10,12 @@ new:  {'Far': 0.75, 'halves': 300, 'min_cluster': 0.6, 'Max': 26, 'P': 1.2, 'res
 
          MRE-    ACC+    PRED40+    Avg evals
 -----  ------  ------  ---------  -----------
-all      75.3     7.2         [92m25[0m            0
+all      75.3     7.2         25            0
 sway1    73.9     7.5       23.8            8
 xpln1    73.7     7.6         25            8
 sway2    73.7     7.5         25         19.5
 xpln2    74.1     7.4         25            8
-top      [92m64.9[0m    [92m11.3[0m         25        10000
+top      64.9    11.3         25        10000
 
          Best    Beat Sway?    Beat Xpln?
 -------  ------  ------------  ------------
@@ -33,3 +33,5 @@ sway1 to xpln1  ≠       ≠       ≠
 sway1 to xpln2  ≠       ≠       ≠
 xpln1 to xpln2  ≠       ≠       ≠
 sway1 to top    ≠       ≠       ≠
+125.43user 0.09system 2:05.56elapsed 99%CPU (0avgtext+0avgdata 208624maxresident)k
+0inputs+16outputs (0major+59020minor)pagefaults 0swaps

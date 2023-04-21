@@ -13,8 +13,8 @@ FAILED: all to all MRE-
          MRE-    ACC+    PRED40+    Avg evals
 -----  ------  ------  ---------  -----------
 all     119.3   -12.2          0            0
-sway1       5      [92m-0[0m         75            8
-xpln1       [92m0[0m       0       [92m83.3[0m            8
+sway1       5      -0         75            8
+xpln1       0       0       83.3            8
 sway2       5      -0         75         25.6
 xpln2       5      -0       79.2            8
 top         0       0       83.3        10000
@@ -35,3 +35,5 @@ sway1 to xpln1  ≠       ≠       ≠
 sway1 to xpln2  ≠       ≠       ≠
 xpln1 to xpln2  ≠       ≠       ≠
 sway1 to top    ≠       ≠       ≠
+107.03user 0.12system 1:47.17elapsed 99%CPU (0avgtext+0avgdata 208132maxresident)k
+0inputs+16outputs (0major+62275minor)pagefaults 0swaps

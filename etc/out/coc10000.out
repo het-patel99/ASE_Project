@@ -11,11 +11,11 @@ new:  {'Far': 0.85, 'halves': 700, 'min_cluster': 0.6, 'Max': 36, 'P': 1.8, 'res
          Loc+    Risk-    Effort-    Avg evals
 -----  ------  -------  ---------  -----------
 all       931        5      21427            0
-sway1  1000.5      3.2    [92m16627.7[0m            8
+sway1  1000.5      3.2    16627.7            8
 xpln1   966.1      4.2    18977.3            8
 sway2  1037.5        4    17287.2         20.4
 xpln2    1010      4.8    17536.2            8
-top      [92m1959[0m        [92m0[0m      17733        10000
+top      1959        0      17733        10000
 
          Best    Beat Sway?    Beat Xpln?
 -------  ------  ------------  ------------
@@ -33,3 +33,5 @@ sway1 to xpln1  ≠       ≠        ≠
 sway1 to xpln2  ≠       ≠        ≠
 xpln1 to xpln2  ≠       ≠        ≠
 sway1 to top    ≠       ≠        ≠
+184.14user 0.13system 3:04.31elapsed 99%CPU (0avgtext+0avgdata 225748maxresident)k
+0inputs+16outputs (0major+64038minor)pagefaults 0swaps

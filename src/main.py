@@ -1,4 +1,3 @@
-from statistics import mean
 from tabulate import tabulate
 from data import Data
 from explain import Explain, select_rows
@@ -6,6 +5,7 @@ from sway import SwayOptimizer
 from decisiontreeOptimizer import DtreeOptimizer
 from sway2 import SwayHyperparameterOptimizer
 from options import options
+from statistics import mean
 from stats import cliffs_delta, bootstrap
 
 help_string = """
@@ -29,7 +29,7 @@ OPTIONS:
   -r  --reuse       child splits reuse a parent pole = true
   -x  --bootstrap   number of samples to bootstrap   = 512    
   -o  --ci          confidence interval              = 0.05
-  -f  --file        file to generate table of        = ../etc/data/healthCloseIsses12mths0011-easy.csv
+  -f  --file        file to generate table of        = ../etc/data/nasa93dem.csv
   -n  --itrs        number of iterations to run      = 20
   -w  --color       output with color                = true
   -s  --sway2       refresh the sway2 parameters     = true

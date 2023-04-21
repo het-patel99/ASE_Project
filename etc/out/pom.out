@@ -15,7 +15,7 @@ sway1    265.9            0.9      0.2            8
 xpln1    322.4            0.9      0.3            8
 sway2    189.2            0.9      0.1         42.1
 xpln2    303.5            0.9      0.2            8
-top      [92m138.5[0m              [92m1[0m        [92m0[0m        10000
+top      138.5              1        0        10000
 
              Best    Beat Sway?    Beat Xpln?
 -----------  ------  ------------  ------------
@@ -33,3 +33,5 @@ sway1 to xpln1  ≠        =              ≠
 sway1 to xpln2  ≠        ≠              ≠
 xpln1 to xpln2  ≠        ≠              ≠
 sway1 to top    ≠        ≠              ≠
+176.11user 0.11system 2:56.24elapsed 99%CPU (0avgtext+0avgdata 223296maxresident)k
+0inputs+16outputs (0major+60699minor)pagefaults 0swaps

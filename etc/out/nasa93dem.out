@@ -8,3 +8,16 @@ rest [1, 2, 3, 4]
 reuse [True, False]
 new:  {'Far': 0.8, 'halves': 100, 'min_cluster': 0.4, 'Max': 36, 'P': 1.0, 'rest': 3, 'reuse': False}
 
+        Kloc+    Effort-    Defects-    Months-    Avg evals
+----  -------  ---------  ----------  ---------  -----------
+all      47.5        252        2007       21.4            0
+sway     16.4      82.73      589.55     13.895            5
+xpln    15.94         73      626.25     13.905            5
+top       4.9      15.84       153.1       8.71           93
+
+              Kloc+    Effort-    Defects-    Months-
+------------  -------  ---------  ----------  ---------
+all to all    =        =          =           =
+all to sway   ≠        ≠          ≠           ≠
+sway to xpln  ≠        ≠          ≠           ≠
+sway to top   ≠        ≠          ≠           ≠
