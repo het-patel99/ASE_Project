@@ -1,13 +1,6 @@
 # Automated Software Engineering Project
 
-[![DOI](https://zenodo.org/badge/596268879.svg)](https://zenodo.org/badge/latestdoi/596268879)
-![GitHub](https://img.shields.io/github/license/het-patel99/ASE_Project)
-![GitHub issues](https://img.shields.io/github/issues/het-patel99/ASE_Project)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/het-patel99/ASE_Project)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/het-patel99/ASE_Project/unit_test.yml)
-![github workflow](https://github.com/het-patel99/ASE_Project/actions/workflows/unit_test.yml/badge.svg)
-
-s# How to Run??s
+## How to Run??s
 
 1. First Install requirement by pip3 install -r requirement.txt
 2. go to src/ directory and then python3 main.py
@@ -17,6 +10,7 @@ s# How to Run??s
 After running the testScript.py the output will be stored in /etc/out/filename file is stored inside the etc/out/ directory
 
 Here is the auto2.out file:
+```
 refreshing sway
 Far [0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
 halves [100, 200, 300, 400, 500, 600, 700]
@@ -55,7 +49,7 @@ xpln1 to xpln2  ≠           ≠              ≠          ≠
 sway1 to top    ≠           ≠              ≠          ≠
 21.31user 0.11system 0:21.43elapsed 99%CPU (0avgtext+0avgdata 189516maxresident)k
 0inputs+16outputs (0major+46029minor)pagefaults 0swaps
-
+```
 # Team Member (Group 18)
 
 1. Het Patel (hpatel28)
