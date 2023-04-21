@@ -1,6 +1,6 @@
 # Automated Software Engineering Project
 
-## How to Run??s
+## How to Run??
 
 1. First Install requirement by pip3 install -r requirement.txt
 2. go to src/ directory and then python3 main.py
