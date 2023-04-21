@@ -9,6 +9,7 @@
 
 After running the testScript.py the output will be stored in /etc/out/filename file is stored inside the etc/out/ directory
 
+[REPORT LINK](https://github.com/het-patel99/ASE_Project/blob/main/report/ASE_Project_Report.pdf)
 
 Here is the auto2.out file:
 ```

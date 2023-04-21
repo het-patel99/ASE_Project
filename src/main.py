@@ -25,12 +25,12 @@ OPTIONS:
   -I  --min_cluster size of smallest cluster         = .5
   -M  --Max         numbers                          = 512
   -p  --P           dist coefficient                 = 2
-  -R  --rest        how many of rest to sample       = 25
+  -R  --rest        how many of rest to sample       = 10
   -r  --reuse       child splits reuse a parent pole = true
   -x  --bootstrap   number of samples to bootstrap   = 512    
   -o  --ci          confidence interval              = 0.05
   -f  --file        file to generate table of        = ../etc/data/auto93.csv
-  -n  --itrs        number of iterations to run      = 15
+  -n  --itrs        number of iterations to run      = 20
   -w  --color       output with color                = true
   -s  --sway2       refresh the sway2 parameters     = true
 """
